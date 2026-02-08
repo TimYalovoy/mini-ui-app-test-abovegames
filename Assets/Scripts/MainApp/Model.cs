@@ -19,6 +19,8 @@ namespace MainApp
         private List<Texture2D> oddPics = new List<Texture2D>();
         private List<Texture2D> evenPics = new List<Texture2D>();
 
+        public int AllPics => AllPicsUrls.Count;
+
         public void FillFiltredCollections()
         {
             OddPicsUrls.Clear();

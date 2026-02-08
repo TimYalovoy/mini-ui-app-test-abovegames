@@ -11,10 +11,10 @@ using UnityEngine.Networking;
 
 namespace MainApp
 {
-    public class ServerService : MonoBehaviour, 
+    public class ServerService : MonoBehaviour,
+        IModelDepend,
         IService, 
-        IConfigurable, 
-        IInitializable
+        IConfigurable
     {
         private FileCache fileCache;
         private CacheValidationHandler validationChain;
@@ -37,7 +37,7 @@ namespace MainApp
             }
         }
 
-        public void Initialize()
+        public void Init()
         {
             InitializeCache();
             InitializeValidationChain();
@@ -74,7 +74,7 @@ namespace MainApp
 
             yield return StartCoroutine(GetFileListFromServer(_model.AllPicsUrls));
 
-            Debug.Log($"Content files found: {_model.AllPicsUrls.Count}");
+            Debug.Log($"Content files found: {_model.AllPics}");
 
             foreach (string fileUrl in _model.AllPicsUrls)
             {

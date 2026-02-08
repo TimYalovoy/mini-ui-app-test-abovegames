@@ -1,0 +1,7 @@
+{
+    "DomenUrl": "http://data.ikppbb.com",
+    "FolderUrl": "/test-task-unity-data/pics/",
+    "RequestDelay": 0.5,
+    "IsCaching": true,
+    "IsClearCachingOnStart": true
+}

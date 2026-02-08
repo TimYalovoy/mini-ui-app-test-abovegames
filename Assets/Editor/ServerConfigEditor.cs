@@ -39,16 +39,7 @@ public class ServerConfigEditor : Editor
 
     private void GenerateJsonFile(ServerConfig config)
     {
-        var data = new
-        {
-            config.DomenUrl,
-            config.FolderUrl,
-            config.RequestDelay,
-            config.IsCaching,
-            config.IsClearCachingOnStart
-        };
-
-        string json = JsonUtility.ToJson(data, true);
+        string json = JsonUtility.ToJson(config, true);
 
         string path = EditorUtility.SaveFilePanel(
             "Save Server Config as JSON",
@@ -56,6 +47,8 @@ public class ServerConfigEditor : Editor
             $"{config.name}_server_config.json",
             "json"
         );
+
+        Debug.Log($"json content: \n{json}");
 
         if (!string.IsNullOrEmpty(path))
         {

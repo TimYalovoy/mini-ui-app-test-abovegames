@@ -10,15 +10,15 @@ using UnityEngine.iOS;
 
 namespace MainApp
 {
-    public class DeviceTypeChecker
+    public class DeviceTypeChecker : IDisposable
     {
-        const int WIDTH = 600;
-        const int HEIGHT = 900;
-        const int DPI = 200; // Dots Per Inch
+        private const int WIDTH = 600;
+        private const int HEIGHT = 900;
+        private const int DPI = 200; // Dots Per Inch
 
-        const string IPAD = "ipad";
-        const string TAB = "tab";
-        const string KINDLE = "kindle";
+        private const string IPAD = "ipad";
+        private const string TAB = "tab";
+        private const string KINDLE = "kindle";
 
         private const int SCREENLAYOUT_SIZE_MASK = 0x0F;
         private const int SCREENLAYOUT_SIZE_LARGE = 0x03;
@@ -135,6 +135,11 @@ namespace MainApp
         {
             string deviceModel = SystemInfo.deviceModel.ToLower();
             return deviceModel.Contains(IPAD) || deviceModel.Contains(TAB) || deviceModel.Contains(KINDLE);
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

@@ -1,3 +1,5 @@
+using DI;
+using MainApp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,21 +7,30 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class Cart : MonoBehaviour
+public class Cart : MonoBehaviour,
+    IClient
 {
-    private Button _bttn;
-    private Image _image;
-    private Image _premiumBadge;
+    [SerializeField] private Button _bttn;
+    [SerializeField] private Image _image;
+    [SerializeField] private Image _premiumBadge;
+
+    private PopUpService _popUpService;
 
     private Action _onButtonClickCallback;
     private UnityAction _onBttnClkCallbackWrapper;
 
     void Awake()
     {
-        _bttn = GetComponent<Button>();
-        _image = _bttn.GetComponent<Image>();
-        _premiumBadge = transform.GetChild(1).GetComponent<Image>();
         _premiumBadge.enabled = false;
+    }
+
+    public void Inject(IService service)
+    {
+        if (service is PopUpService popUpService)
+        {
+            _popUpService = popUpService;
+            _popUpService.AddCart(this, _premiumBadge.enabled);
+        }
     }
 
     private void OnEnable()
@@ -40,12 +51,7 @@ public class Cart : MonoBehaviour
 
     private void OnButtonClick()
     {
-
-    }
-
-    public void RequestContent()
-    {
-
+        _onButtonClickCallback.Invoke();
     }
 
     public void ReceiveContent(Sprite sprite, bool isPremium)
@@ -56,6 +62,6 @@ public class Cart : MonoBehaviour
 
     private void OnBecameVisible()
     {
-        RequestContent();
+        //RequestContent();
     }
 }
